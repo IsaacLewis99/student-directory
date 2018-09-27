@@ -41,6 +41,22 @@ def print_menu
   puts '9. Exit the program'
 end
 
+
+
+
+
+def save_students()
+  #Open the file for writing
+  file = File.open('students.csv', 'w')
+  #Iterate over the students array to write into the file
+  @students.each do |z|
+    student_data = [z[:name], z[:cohort]]
+    csv_line = student_data.join(',')
+    file.puts csv_line
+  end
+  file.close
+end
+
 def process(selection)
   case selection
   when '1'
@@ -71,11 +87,4 @@ def show_students
   print_footer(@students)
 end
 
-
-
-
-#nothing happens until we call the methods
-#print_header
-#print(students)
-#print_footer(students)
 interactive_menu()
