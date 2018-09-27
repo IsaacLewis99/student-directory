@@ -18,13 +18,13 @@ def input_students
 end
 
 def print_header
-puts "The student of Villains Academy"
-puts "------------"
+  puts "The student of Villains Academy"
+  puts "------------"
 end
-def print(students)
+def print_student_list(students)
   i=0
   while i < students.length
-  	student = students[i]
+    student = students[i]
     puts "#{i} #{student[:name]} (#{student[:cohort]} cohort)"
     i += 1
   end
@@ -37,31 +37,37 @@ end
 def print_menu
   puts '1. Input new students'
   puts '2. Show current students'
+  puts '3. Save students to file'
   puts '9. Exit the program'
+end
+
+def process(selection)
+  case selection
+  when '1'
+    input_students()
+  when '2'
+    show_students()
+  when '3'
+    save_students()
+  when '9'
+    exit
+  else
+    puts 'Invalid selection. Try again.'
+  end
 end
 #Run the interactive menu and get user input
 def interactive_menu
   
   loop do
     print_menu() 
-    selection = gets.chomp
     
-    case selection
-      when '1'
-        input_students()
-      when '2'
-       show_students()
-      when '9'
-        exit
-      else
-        puts 'Invalid selection. Try again.'
-    end
+    process(gets.chomp)
   end
 end
 #Print the list students
 def show_students
   print_header()
-  print(@students)
+  print_student_list(@students)
   print_footer(@students)
 end
 
