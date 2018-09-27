@@ -11,7 +11,7 @@ def input_students
     @students << {name: name, cohort: :november}
     puts "Now we have #{@students.count} students"
     #Get another name from the user
-    name = gets.chomp
+  name = STDIN.gets.chomp
   end
   #Return the array of students
   @students
@@ -38,6 +38,7 @@ def print_menu
   puts '1. Input new students'
   puts '2. Show current students'
   puts '3. Save students to file'
+  puts '4. Load students from file'
   puts '9. Exit the program'
 end
 
@@ -57,6 +58,26 @@ def save_students()
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} does not exist"
+    exit
+  end
+end
+def load_students(filename = 'students.csv')
+  file = File.open("students.csv", "r")
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split(',')
+    @students << {name: name, cohort: cohort.to_sym}
+  end
+  file.close
+end
+
 def process(selection)
   case selection
   when '1'
@@ -65,6 +86,8 @@ def process(selection)
     show_students()
   when '3'
     save_students()
+  when '4'
+    load_students()
   when '9'
     exit
   else
@@ -77,7 +100,7 @@ def interactive_menu
   loop do
     print_menu() 
     
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 #Print the list students
@@ -86,5 +109,5 @@ def show_students
   print_student_list(@students)
   print_footer(@students)
 end
-
+try_load_students()
 interactive_menu()
