@@ -1,4 +1,4 @@
-student_count = 11
+
 students = []
 # first we print the list od students
 def input_students
@@ -25,8 +25,11 @@ puts "The student of Villains Academy"
 puts "------------"
 end
 def print(students)
-   students.each_with_index do |student,i|
-    puts "#{i} #{student[:name]} (#{student[:cohort]} cohort)" if student[:name].length < 12
+  i=0
+  while i < students.length
+  	student = students[i]
+    puts "#{i} #{student[:name]} (#{student[:cohort]} cohort)"
+    i += 1
   end
 end
 def print_footer(student)
