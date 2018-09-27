@@ -35,11 +35,35 @@ end
 def print_footer(student)
   puts "Overall, we have #{student.count} great students"
 end
+def interactive_menu
+  students = []
+  loop do
+    puts '1. Input new students'
+    puts '2. Show current students'
+    puts '9. Exit the program'
+    
+    selection = gets.chomp
+    
+    case selection
+      when '1'
+        students = input_students()
+      when '2'
+        print_header()
+        print(students)
+        print_footer(students)
+      when '9'
+        exit
+      else
+        puts 'Invalid selection. Try again.'
+    end
+  end
+end
 
-students = input_students
+
 
 
 #nothing happens until we call the methods
-print_header
-print(students)
-print_footer(students)
+#print_header
+#print(students)
+#print_footer(students)
+interactive_menu()
